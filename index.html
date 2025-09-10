@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Excel Communications – Network Device Access Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root { --brand:#0a66c2; --border:#d8d8d8; --bg:#f7f9fc; }
+    html, body { height: 100%; }
+    body { font-family: Arial, Helvetica, sans-serif; margin: 24px; line-height: 1.45; background: var(--bg); }
+    .card { background:#fff; border:1px solid var(--border); border-radius: 10px; padding: 20px; max-width: 1100px; margin: 0 auto 40px; box-shadow: 0 2px 10px rgba(0,0,0,.04); }
+    header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:8px; }
+    .brand-title { font-size: 24px; font-weight: 800; color:#0a2940; margin:0; }
+    .brand-sub { color:#365; margin:2px 0 0 0; font-size: 13px; }
+    .brand-contact { color:#0a2940; font-weight:600; margin-top:4px; }
+    .logo { height: 56px; width:auto; object-fit: contain; }
+    h2 { margin: 26px 0 10px; font-size: 18px; border-bottom: 2px solid var(--brand); padding-bottom: 6px; }
+    .row { display: grid; grid-template-columns: 280px 1fr; gap: 12px; align-items: center; margin: 8px 0; }
+    label { font-weight: 600; }
+    input[type="text"], input[type="email"], input[type="tel"] {
+      width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; background: #fff;
+    }
+    .hint { color:#666; font-size: 12px; }
+    table { border-collapse: collapse; width: 100%; background:#fff; }
+    th, td { border: 1px solid var(--border); padding: 8px; text-align: left; vertical-align: top; }
+    th { background:#f1f5fb; }
+    .btn { display:inline-block; margin-top:10px; margin-right:8px; padding:10px 14px; background:var(--brand); color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600; }
+    .btn.secondary { background:#555; }
+    .btn.ghost { background:#eee; color:#111; }
+    .btn.danger { background:#c62828; }
+    .row-actions { white-space: nowrap; }
+    .footer-note { margin-top: 16px; font-weight: bold; }
+    .brand-footer { text-align:center; color:#333; font-size: 13px; margin-top: 24px; }
+    .brand-footer a { color:#0a66c2; text-decoration: none; }
+    .bar { display:flex; gap:10px; flex-wrap: wrap; align-items:center; margin-top: 14px; }
+    .req { color:#c62828; margin-left:6px; font-weight:normal; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background:#fff; margin:0; }
+      .card { box-shadow:none; border:none; margin:0; padding:0; }
+      input { border: 1px solid #aaa; }
+      h2 { border-bottom: 1px solid #aaa; }
+      .hint { color:#000; }
+      .brand-footer { margin-top: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <header>
+      <img class='logo' alt='Excel Communications Logo' src='data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAAGNbWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAsaWxvYwAAAABEAAACAAEAAAABAAAB6QAACPUAAgAAAAEAAAG1AAAANAAAAEJpaW5mAAAAAAACAAAAGmluZmUCAAAAAAEAAGF2MDFDb2xvcgAAAAAaaW5mZQIAAAAAAgAAYXYwMUFscGhhAAAAABppcmVmAAAAAAAAAA5hdXhsAAIAAQABAAAAw2lwcnAAAACdaXBjbwAAABRpc3BlAAAAAAAAAKMAAABJAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQAMAAAAABNjb2xybmNseAACAAIAAoAAAAAOcGl4aQAAAAABCAAAAAxhdjFDgQAcAAAAADhhdXhDAAAAAHVybjptcGVnOm1wZWdCOmNpY3A6c3lzdGVtczphdXhpbGlhcnk6YWxwaGEAAAAAHmlwbWEAAAAAAAAAAgABBAECgwQAAgQBBYYHAAAJMW1kYXQSAAoKAAAAA7UUg2vkqDIkEACNgDjiQSDDNNK2z7NHyHJCBjJ3Q4Jx/3uL6ahn9N61D0IwEgAKCgAAAAO1FINr5CEy5BEQAIkACCCCCQQS2bXNHpn9/K3algdKqIEtM9modpDTLWi6dMujBiDy4Kvi9/PdTk38V/vWckzVg1gJ3cJT2KqdvDKxjW/00oJsPkkv/KOEoXlhZtPt549ML6b6WwEpCh+G9FxMZHm2wpWl2rngqGilKPzubWNMhrjNWNN+SaIJ5RPtuj3P40maMvPtSgLei9VC3V8/kKIweVUpODoYAdsw3bXuPrhQBkOGYNwcJiiBu7MYCjNy7BmKwYGF7QWpCc+qbbHhBg01DJyMni6/7MCEW2h58R5ZLb+RGPi9p9rF5YIC4Oz3iNNPKJjs6mZuCygqcnpMy2Qb7j/Jw2+f1S3jEyRmG2DKM7CbtlS1JBWAK03Oh0Ctb3vGKZEnsdoCTPjbuS9rsRJCjIyDsUh5D0/aQ2T6YSE7rL676V6MCO7JEhwsnJsNH6Ak8AQDH5RiSrZ+0e0/HJOs4QVkqemkVjs27091C1jgUiSfg/eOW2z2HNls9A0aRJgpVEbILjg6nGXMG0Z4VtohxDDlnSqGoQP8XteQaBZs4H+GVKRwcGctPyUYyYi796qZ/v4FSLZzDUZe3A0NWTphzf4wHyNyFywZKoUrCGgm/K4MQL3pjhtalOTTeFv+hoDSgO39HQzh0+Q6hiaM17VfwPEw+fb5W7zdk4cARkUL/fQaAtrxbnmf2vMMfpcRGM35NGaVRvbdwpvnTZVnFAy5pVgZ2C+djHYRecTlItg9r40SnPErKLjSpm29qxS4SOcyA+11rYzapmzsE/pF9e54bOL7EUrwNK3PoNJ2BSf68berccMhXFMrKYLMEhHk3bHgvCdhR9WR/utd6IbPXbF+pgQEUqKDrEICDZyimT4lr3qzGbqvSa8GDq52cTteDPeNrEkmwza29iTL3/CbB3IAEqTuObmjaBYqa5stEsLk//ylaLkGlylDUxnv70SmlodVzOnmUNSSgweDAEO0YaLMZ1zJ4LbW61/A2M0bPfGcYZnyszebHBa8n8sI7SWbb7nN7unDTWFa6Bw09Pj1WCfcRpLkzOeeEjZSysY2nCOG5IXncwNp75sjjDcFSPKvpB5npu6AxCQjxN/Qdi63uDcFU2hIJSIb+GDOJg4rzTfQh/nD4BSKf///CdH9rrArUawHUQuOjMHKztXRA/XorUrlSm6NwAKrajevzXaEyH4Xym1vBu81OOcRTT5LlQdNN2y3M7hYHgHAAAATd0N3sX8HvsMDn3yz6ou37e/fSMppWZYlLeNU0xTuuppHQNibnwC1dHs14mR8hst+YmKjw71d23kW/gS58i4OyWHH7Z7PXF3XeWD+cG5COD5AGzfsJCLiU1F5yMtMqop9wKedrOiPOX/5MI6oZ1mYZhkzy1MGyAeGub6HIsTLr4WwPDYJv8wZl6xc76BdHrCkyd6gOYiid58b9R81TsVl2kPF6Pjab+4rGPxaoQl+4Hwu5PkSM0mL5BLIU4F81mEbBpXf2Jryh33PMJJfVZn+TJ8q7pmbmUqUyw5fkNi4l4Uh/fUpvsJGxeISGIe4BzEjZiWHV/8D+MRuGJ/OTNq8D3l0xAwpGQ5TitnyVS56kJibe9JLxd8iaRLE9PFiFtq+ZPV3yHCq5c5WIIUgFU79bZzkYqq1Kfq58dxFNG1W4ECHyVYZ7g6Dwp4DyYIg75lyNTV2sHjS3w5ZF/VdS6SgV+O8BK7+fvFQk9d6hx4Lj9sf1bXLl+atWam5VfG8LnwReXZosdwyp5Y1F00dUIMIsfq+KlSoomSEw1UPvgdYZFfUbA/fZWtUsPvwIphNqBPv/FUM+t0r0txJMIrxIaudekgmITNEuIzNJBFaxdx2rgTSHlUrLgpky5GHBpf7/js6/Ofjigqo/okR/NX4BmBeXJ3wESqm5exMjDwODkAKpa/rwejDZiX+14PGUjM6vfO6jC21Ga670wIhvWfnISf0vN6vaIDh6V4JUu5DN3NpZcnIZiFcB3DPhCJz0/g1jMKg5MRYyzSAskDqHYTxgO4Fwz0wAnK6mmbmEFnXF8AFeHganC6L8uQzW5FizCbW+69OBfXKAhNZ0+V4FOahFfdXIiVjtuWqBtm9OMWeyK1ScA8s/mKcER1drX5n0o6lROvbLqtNkCuF+636eT4vV+QP+40bYAsrqNk3onYopKC7UNSt1yKST5Ldf0m6wfSJoCSwyccOuqQUEZ7w5w4Faq2wjice4B+ELLyiq/fNmHh+ZqzKLVFp4wRrLlLFRonse5vHrcbTo0UC9XU6dly+XMj5lF4b66Wm9Zn8hGwh31tLWkEDP5PLbCKUtYF4fEu51RRrxhX/armKIvHcvZDrcXbhD6dUFyGhu6sx4j42GSEclMQp6GD3in1gwfzoN/arDNfsbvsEXWQuTqH/z4XNvERTlVjNTR+3Lnu1b+WdNwGagFe8h7TOxcGRj6P1FzqgAAAA2VbDM72Xp8eEAWBEsDuuS528wQwBmX+qmj+NTTbYcoiNdztjIRuFDg6filwr51dW8sPAbJsHJGMvKFd8opK0zoI1IgiCt6p8Py0oP5bgGsDMIHIFL4fIpZhMU9JXlGqsUh0J9ZUXk5N8eL/WOz1iP6xuU/7JOX9BKTNWSyzjRubpHzPuliqFwofXICkoXYTona6LcybtJUe6f7BhL+8KCV6+70tWVIBchf7vZcvRazLfEUQ2pMF87zoaZNT1aFPcAtJISwBJfAYCmcSZhuvfp8cns0XsBUCBs72NuJkMtw730VkuGS/AbhI2T5hjczqoMy4Mr2tVAVEEsWJN7BWrKJKCeD8byP9NY6k4/KoszysHiOh+hXVN1jOqDYe/yz2xqoHYfYjXxR4DHfnOTq+5QRboem9FIYF1Df+HzUqPMbCd8Ntm3xIwg7pbEzhu6eGhudBu1zkQWibvQLIQZY5I4BAMR7tGqobq8KZ1lTz/5FLyeZA2urYPu4G2o+DrdS9S+TgzRGAMYdFqoOc2ngVv/vrAAJF0e8VYOeZNvVaWeRF/3Dq7xpsm1gKlVmwDVVbe69rfhWxpqjrubY063FN3SOH1oA=='>
+      <div>
+        <h1 class="brand-title">Excel Communications – Network Device Access Form</h1>
+        <p class="brand-sub">Please complete all fields. Click “Add Device / Add Entry” to add rows. Print/Save to PDF when finished.</p>
+        <div class="brand-contact">📞 423-567-5100 • 📍 Chattanooga, TN</div>
+      </div>
+    </header>
+
+    <form id="accessForm" novalidate>
+      <h2>Business Information</h2>
+      <div class="row"><label>Business Location Name<span class="req">*</span></label><input type="text" name="location_name" required></div>
+      <div class="row"><label>Business Address<span class="req">*</span></label><input type="text" name="address" required></div>
+      <div class="row"><label>Business Property Code<span class="req">*</span></label><input type="text" name="property_code" required></div>
+
+      <h2>Requestor Information</h2>
+      <div class="row"><label>Name<span class="req">*</span></label><input type="text" name="requestor_name" required></div>
+      <div class="row"><label>Company<span class="req">*</span></label><input type="text" name="company" required></div>
+      <div class="row"><label>Role/Title<span class="req">*</span></label><input type="text" name="role" required></div>
+      <div class="row"><label>Phone / Email<span class="req">*</span></label><input type="text" name="contact" required></div>
+
+      <h2>Device Information</h2>
+      <div class="hint">Click “Add Device” to add more devices. All device fields are required.</div>
+      <table id="devicesTable">
+        <thead>
+          <tr>
+            <th>Device Owner</th>
+            <th>Device Type</th>
+            <th>Device Name/Model</th>
+            <th>OS & Version</th>
+            <th>MAC Address</th>
+            <th>IP Assignment</th>
+            <th class="no-print">Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="bar no-print">
+        <button type="button" class="btn" onclick="addDevice()">+ Add Device</button>
+      </div>
+
+      <h2>Remote Access Information</h2>
+      <div class="hint">List all static public IPs that will be used to remotely connect into your devices, and the internal ports your devices will use. All fields are required.</div>
+      <table id="accessTable">
+        <thead>
+          <tr>
+            <th>Static Public IP</th>
+            <th>Internal Port(s)</th>
+            <th>Device Associated</th>
+            <th class="no-print">Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="bar no-print">
+        <button type="button" class="btn" onclick="addAccess()">+ Add Entry</button>
+      </div>
+
+      <h2>Access Requirements</h2>
+      <div class="row"><label>Access Level<span class="req">*</span></label>
+        <div>
+          <label><input type="checkbox" name="access_level" value="Internet Only" required> Internet Only</label><br>
+          <label><input type="checkbox" name="access_level" value="Internal Systems"> Internal Systems</label><br>
+          <label><input type="checkbox" name="access_level" value="VPN"> VPN</label><br>
+          <label><input type="checkbox" id="access_other_cb" name="access_level" value="Other"> Other:
+            <input type="text" id="access_other_text" name="access_other_text" placeholder="Describe other access" style="margin-left:6px; width: 60%;">
+          </label>
+          <div class="hint">Select all that apply (at least one required). If "Other" is checked, you must describe it.</div>
+        </div>
+      </div>
+
+      <div class="row"><label>Duration of Access<span class="req">*</span></label>
+        <div>
+          <label><input type="radio" name="duration" value="Permanent" required> Permanent</label>
+          &nbsp;&nbsp;
+          <label><input type="radio" name="duration" value="Temporary"> Temporary</label>
+          &nbsp;&nbsp;
+          <span class="hint">If Temporary, specify dates below (YYYY-MM-DD).</span>
+          <div style="margin-top:6px;">
+            <label>From:</label> <input type="text" id="date_from" name="date_from" placeholder="YYYY-MM-DD">
+            &nbsp;&nbsp;
+            <label>To:</label> <input type="text" id="date_to" name="date_to" placeholder="YYYY-MM-DD">
+          </div>
+        </div>
+      </div>
+
+      <h2>Compliance & Terms</h2>
+      <ul class="hint">
+        <li>Devices must have up-to-date security patches and antivirus.</li>
+        <li>Only the listed device(s) are permitted to connect.</li>
+        <li>Unauthorized traffic or tampering with network settings is prohibited.</li>
+        <li>Access may be monitored and revoked if misuse is detected.</li>
+        <li>Vendors are responsible for their own equipment security.</li>
+      </ul>
+
+      
+
+      <div class="row"><label>Signature (Requestor)<span class="req">*</span></label><input type="text" name="signature" required></div>
+<p class="footer-note">📧 Submit completed form to: <strong>support@ex-comm.net</strong></p>
+
+      <div class="bar no-print">
+        <button type="button" class="btn secondary" onclick="validateForm()">Validate</button>
+        <button type="button" class="btn" onclick="window.print()">Print / Save to PDF</button>
+        <button type="reset" class="btn ghost">Clear Form</button>
+      </div>
+    </form>
+
+    <div class="brand-footer">
+      <div><strong>Excel Communications</strong> • <a href="https://ex-comm.net" target="_blank" rel="noopener">ex-comm.net</a></div>
+      <div>Business Hours: Mon–Fri 8:00 AM – 4:00 PM (Eastern)</div>
+      <div>Chattanooga, TN • 423-567-5100</div>
+    </div>
+  </div>
+
+<script>
+let deviceCount = 0;
+let accessCount = 0;
+
+function addDevice() {
+  const tbody = document.querySelector('#devicesTable tbody');
+  const row = document.createElement('tr');
+  const radioName = 'ipAssign_' + (++deviceCount);
+  row.innerHTML = `
+    <td><input type="text" name="device_owner_${deviceCount}" required></td>
+    <td><input type="text" name="device_type_${deviceCount}" required></td>
+    <td><input type="text" name="device_model_${deviceCount}" required></td>
+    <td><input type="text" name="device_os_${deviceCount}" required></td>
+    <td><input type="text" name="device_mac_${deviceCount}" required></td>
+    <td>
+      <label><input type="radio" name="${radioName}" value="DHCP" required> DHCP</label>
+      &nbsp;
+      <label><input type="radio" name="${radioName}" value="Static" required> Static</label>
+    </td>
+    <td class="row-actions no-print"><button type="button" class="btn danger" onclick="removeRow(this)">Remove</button></td>
+  `;
+  tbody.appendChild(row);
+}
+
+function addAccess() {
+  const tbody = document.querySelector('#accessTable tbody');
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td><input type="text" name="access_ip_${++accessCount}" required></td>
+    <td><input type="text" name="access_ports_${accessCount}" required></td>
+    <td><input type="text" name="access_device_${accessCount}" required></td>
+    <td class="row-actions no-print"><button type="button" class="btn danger" onclick="removeRow(this)">Remove</button></td>
+  `;
+  tbody.appendChild(row);
+}
+
+function removeRow(btn) {
+  const tr = btn.closest('tr');
+  tr.parentNode.removeChild(tr);
+}
+
+function isValidDateStr(s) {
+  // YYYY-MM-DD basic check
+  const re = /^\d{4}-\d{2}-\d{2}$/;
+  if (!re.test(s)) return false;
+  const parts = s.split('-').map(Number);
+  const y = parts[0], m = parts[1]-1, d = parts[2];
+  const dt = new Date(y, m, d);
+  return dt.getFullYear() === y && dt.getMonth() === m && dt.getDate() === d;
+}
+
+function validateForm() {
+  const form = document.getElementById('accessForm');
+  const hasDevice = document.querySelectorAll('#devicesTable tbody tr').length > 0;
+  const hasAccess = document.querySelectorAll('#accessTable tbody tr').length > 0;
+
+  let messages = [];
+  if (!hasDevice) messages.push('Please add at least one Device entry.');
+  if (!hasAccess) messages.push('Please add at least one Remote Access entry.');
+
+  // Access Level: at least one checkbox checked
+  const accessCbs = Array.from(document.querySelectorAll('input[name="access_level"]'));
+  const anyAccessLevel = accessCbs.some(cb => cb.checked);
+  if (!anyAccessLevel) messages.push('Please select at least one Access Level.');
+
+  // If "Other" is checked, require text
+  const otherCb = document.getElementById('access_other_cb');
+  const otherText = document.getElementById('access_other_text');
+  if (otherCb.checked && !otherText.value.trim()) {
+    messages.push('Please describe the "Other" access level.');
+    otherText.style.borderColor = '#c62828';
+  } else {
+    otherText.style.borderColor = '#d8d8d8';
+  }
+
+  // Duration required
+  const durationRadios = Array.from(document.querySelectorAll('input[name="duration"]'));
+  const durationSelected = durationRadios.some(r => r.checked);
+  if (!durationSelected) messages.push('Please select a Duration of Access.');
+
+  // If Temporary is selected, validate date formats and order
+  const tempSelected = durationRadios.some(r => r.checked && r.value === 'Temporary');
+  const df = document.getElementById('date_from');
+  const dt = document.getElementById('date_to');
+  if (tempSelected) {
+    if (!df.value.trim() || !dt.value.trim()) {
+      messages.push('Please provide both From and To dates for Temporary access.');
+      df.style.borderColor = '#c62828';
+      dt.style.borderColor = '#c62828';
+    } else if (!isValidDateStr(df.value) || !isValidDateStr(dt.value)) {
+      messages.push('Dates must be in valid YYYY-MM-DD format.');
+      df.style.borderColor = !isValidDateStr(df.value) ? '#c62828' : '#d8d8d8';
+      dt.style.borderColor = !isValidDateStr(dt.value) ? '#c62828' : '#d8d8d8';
+    } else {
+      const from = new Date(df.value);
+      const to = new Date(dt.value);
+      if (from > to) {
+        messages.push('The From date cannot be after the To date.');
+        df.style.borderColor = '#c62828';
+        dt.style.borderColor = '#c62828';
+      } else {
+        df.style.borderColor = '#d8d8d8';
+        dt.style.borderColor = '#d8d8d8';
+      }
+    }
+  } else {
+    // reset border color if not temporary
+    df.style.borderColor = '#d8d8d8';
+    dt.style.borderColor = '#d8d8d8';
+  }
+
+  // Check all required text inputs are non-empty
+  const requiredInputs = form.querySelectorAll('input[required]');
+  requiredInputs.forEach(el => {
+    if (el.type === 'radio' || el.type === 'checkbox') return;
+    if (!el.value.trim()) {
+      el.style.borderColor = '#c62828';
+    } else {
+      el.style.borderColor = '#d8d8d8';
+    }
+  });
+
+  if (messages.length) {
+    alert(messages.join('\n'));
+    return false;
+  } else {
+    alert('Looks good! You can Print/Save to PDF and email to support@ex-comm.net.');
+    return true;
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  addDevice();
+  addAccess();
+});
+</script>
+</body>
+</html>
